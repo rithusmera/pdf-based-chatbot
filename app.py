@@ -1,6 +1,6 @@
 import streamlit as st
-from Core import chunker
-from Core import embedder
+from Core import chunk
+from Core import embed
 from Core import pipeline
 
 st.title("PDF Chatbot")
@@ -15,8 +15,8 @@ if uploaded_file:
     if 'embeddings' not in st.session_state:
         with st.spinner("Processing PDF..."):
             pages = pipeline.process_pdf(uploaded_file)
-            chunks = chunker.create_chunks(pages) 
-            embeddings = embedder.create_embeddings(chunks)
+            chunks = chunk.create_chunks(pages) 
+            embeddings = embed.create_embeddings(chunks)
             summary = pipeline.create_summary(pages)
 
             st.session_state['chunks'] = chunks
